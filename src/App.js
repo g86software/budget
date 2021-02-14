@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { db } from './firebase_config.js';
 import firebase from 'firebase';
 import TodoListItem from './Todo';
+import { Button, TextField } from '@material-ui/core';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -39,31 +40,39 @@ function App() {
   }
 
   return (
-    <div 
-      className="App"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyDirection: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className="App">
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyDirection: "center",
+          alignItems: "center",
+          width: '100%'
+        }}
+      >
+      <h1>Daniel Graham's Todo List</h1>
+      <form>
+        <TextField
+          id="standard-basic"
+          label="Write a Todo"
+          value={todoInput}
+          onChange={(e) => setTodoInput(e.target.value)}
+          style={{width: '90vw', maxWidth: '500px'}}
+        />
 
-    <div>
-      <h1>My Budget App</h1>
-      <input 
-        type="text"
-        placeholder="Write a todo"
-        value={todoInput}
-        onChange={(e) => setTodoInput(e.target.value)}
-        style={{ maxWidth: "300px", width: "90vw"}}
-      />
-      <input type="button" onClick={addTodo} value="Default" />
+        <Button
+          type="submit"
+          variant="contained"
+          onClick={addTodo}
+          style={{display: 'none'}}
+        >Default</Button>
+        </form>
 
-      {todos.map((todo) => (
-        <TodoListItem todo={todo.todo} inprogress={todo.inprogress} id={todo.id} />
-      ))}
-
+        <div style={{width: '90vw', maxWidth: '500px', marginTop: '24px'}}>
+          {todos.map((todo) => (
+            <TodoListItem todo={todo.todo} inprogress={todo.inprogress} id={todo.id} />
+          ))}
+        </div>
       </div>
     </div>
   );
