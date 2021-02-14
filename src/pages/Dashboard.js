@@ -52,7 +52,6 @@ function Dashboard() {
             width: '100%'
           }}
         >
-        <h1>Daniel Graham's Todo List</h1>
         <form>
           <TextField
             id="standard-basic"
@@ -72,7 +71,7 @@ function Dashboard() {
 
           <div style={{width: '90vw', maxWidth: '500px', marginTop: '24px'}}>
             {todos.map((todo) => (
-              <TodoListItem todo={todo.todo} inprogress={todo.inprogress} id={todo.id} />
+              <TodoListItem key={todo.id} todo={todo.todo} inprogress={todo.inprogress} id={todo.id} />
             ))}
           </div>
 
