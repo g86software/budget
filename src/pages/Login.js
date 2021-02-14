@@ -1,8 +1,9 @@
 import React, { useCallback, useContext } from 'react';
 import { withRouter, Redirect } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import { app } from '../base';
 import { AuthContext } from '../Auth';
-import { Button, FormControl, FormHelperText, Input, InputLabel } from '@material-ui/core';
+import { Button, FormControl, FormHelperText, Input, InputLabel, Link } from '@material-ui/core';
 import './Login.css';
 
 const Login = ({ history }) => {
@@ -28,10 +29,6 @@ const Login = ({ history }) => {
         return <Redirect to='/' />;
     }
 
-    function validateForm() {
-        
-    }
-
     return (
 
         <div className='Login'>
@@ -45,8 +42,12 @@ const Login = ({ history }) => {
                     <InputLabel htmlFor='password'>Password</InputLabel>
                     <Input id='password' name='password' type='password' variant='outlined' />
                 </FormControl>
-                <FormControl>
-                    <Button color='primary' type='submit'>Login</Button>
+                <FormControl style={{
+                    display: 'flex',
+                    flexDirection: 'row'
+                }}>
+                    <Button style={{width: '50%'}} color='primary' type='submit'>Login</Button>
+                    <Button style={{width: '50%'}} color='primary' component={RouterLink} to='/SignUp'>Sign Up</Button>
                 </FormControl>
             </form>
         </div>
