@@ -1,6 +1,6 @@
 import { Button, ListItem, ListItemText } from '@material-ui/core'
 import React from 'react'
-import { db } from './firebase_config'
+import {app, db} from './base'
 
 export default function TodoListItem({ id, todo, inprogress }) {
 

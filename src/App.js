@@ -1,80 +1,27 @@
-import logo from './logo.svg';
+
 import './App.css';
-import { useState, useEffect } from 'react';
-import { db } from './firebase_config.js';
-import firebase from 'firebase';
-import TodoListItem from './Todo';
-import { Button, TextField } from '@material-ui/core';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute'
+import Header from './components/Header';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
+import Signup from './pages/SignUp';
+import { AuthProvider } from './Auth';
 
 function App() {
-  const [todos, setTodos] = useState([]);
-  const [todoInput, setTodoInput] = useState("");
 
-  useEffect(() => {
-    getTodos();
-  }, [])
-
-  const getTodos = () => {
-    db.collection("todos").onSnapshot(function (querySnapshot) {
-      setTodos(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          todo: doc.data().todo,
-          inprogress: doc.data().inprogress
-        }))
-      );
-    })
-  }
-
-  const addTodo = (e) => {
-    e.preventDefault();
-
-    db.collection("todos").add({
-      inprogress: true,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      todo: todoInput,
-    });
-
-    setTodoInput("");
-
-  }
 
   return (
-    <div className="App">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyDirection: "center",
-          alignItems: "center",
-          width: '100%'
-        }}
-      >
-      <h1>Daniel Graham's Todo List</h1>
-      <form>
-        <TextField
-          id="standard-basic"
-          label="Write a Todo"
-          value={todoInput}
-          onChange={(e) => setTodoInput(e.target.value)}
-          style={{width: '90vw', maxWidth: '500px'}}
-        />
-
-        <Button
-          type="submit"
-          variant="contained"
-          onClick={addTodo}
-          style={{display: 'none'}}
-        >Default</Button>
-        </form>
-
-        <div style={{width: '90vw', maxWidth: '500px', marginTop: '24px'}}>
-          {todos.map((todo) => (
-            <TodoListItem todo={todo.todo} inprogress={todo.inprogress} id={todo.id} />
-          ))}
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Header />
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
         </div>
-      </div>
-    </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
