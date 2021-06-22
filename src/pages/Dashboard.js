@@ -11,6 +11,12 @@ function Dashboard() {
     const [todos, setTodos] = useState([]);
     const [todoInput, setTodoInput] = useState("");
   
+    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const firstDate = new Date(2008, 1, 12);
+    const secondDate = new Date(2008, 1, 22);
+    
+    const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+
     useEffect(() => {
       getTodos();
     }, [])
@@ -74,6 +80,8 @@ function Dashboard() {
               <TodoListItem key={todo.id} todo={todo.todo} inprogress={todo.inprogress} id={todo.id} />
             ))}
           </div>
+
+            {diffDays}
 
         </div>
     )

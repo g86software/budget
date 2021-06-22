@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import Signup from './pages/SignUp';
 import { AuthProvider } from './Auth';
+import Employees from './pages/Employees';
+import Employee from './pages/Employee';
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
         <div className="App">
           <Header />
           <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute path="/employees/:id" component={Employee} />
+          <PrivateRoute exact path="/employees" component={Employees} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
         </div>

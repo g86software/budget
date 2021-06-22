@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
 import { Button, FormControl, FormHelperText, Input, InputLabel, Link } from '@material-ui/core';
 import { app } from '../base';
+import './SignUp.css';
 
 const SignUp = ({ history }) => {
     const handleSignUp = useCallback(async event => {
